@@ -37,10 +37,9 @@ class SwaggerController extends AbstractController
 
     private function generateSwaggerJson(): void
     {
-        $dir = APP_DIR;
-        $openApi = Generator::scan(["{$dir}/src"]);
+        $openApi = Generator::scan([SRC_DIR]);
 
-        $path = "{$dir}/public/swagger.json";
+        $path = WWW_DIR.'/swagger.json';
 
         $openApi->saveAs($path, 'json');
     }
