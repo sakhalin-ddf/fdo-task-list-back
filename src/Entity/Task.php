@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\TaskRepository;
+use Carbon\CarbonImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
@@ -12,18 +13,22 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 class Task
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    #[ORM\Column(type: 'integer', nullable: false)]
     #[SerializedName('id')]
-    private $id;
+    private ?int $id = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: false)]
     #[SerializedName('title')]
-    private $title;
+    private ?string $title = null;
 
-    #[ORM\Column(type: 'text')]
+    #[ORM\Column(type: 'text', nullable: false)]
     #[SerializedName('text')]
-    private $text;
+    private ?string $text = null;
+
+    #[ORM\Column(type: 'datetimetz_immutable', nullable: false)]
+    #[SerializedName('created_at')]
+    private ?\DateTimeImmutable $createdAt = null;
 
     public function getId(): ?int
     {
@@ -35,11 +40,9 @@ class Task
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(string $title): void
     {
         $this->title = $title;
-
-        return $this;
     }
 
     public function getText(): ?string
@@ -47,10 +50,18 @@ class Task
         return $this->text;
     }
 
-    public function setText(string $text): self
+    public function setText(string $text): void
     {
         $this->text = $text;
+    }
 
-        return $this;
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(): void
+    {
+        $this->createdAt ??= CarbonImmutable::now();
     }
 }
