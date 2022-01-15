@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use OpenApi\Generator;
-use OpenApi\StaticAnalyser;
-use OpenApi\Util;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\File;
@@ -30,7 +28,7 @@ class SwaggerController extends AbstractController
         $this->generateSwaggerJson();
 
         // load the template from the filesystem
-        $file = new File(sprintf('%s/../../templates/swagger.html', __DIR__));
+        $file = new File(APP_DIR.'/templates/swagger.html');
         $response = new BinaryFileResponse($file);
         $response->headers->set('Content-Type', 'text/html');
 

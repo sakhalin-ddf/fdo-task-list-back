@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http;
 
-use App\Lms\Domain\Events\RequestLogEvent;
-use App\Lms\Domain\Exception\ParameterBugException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -24,8 +22,6 @@ class JsonRequestTransformer implements EventSubscriberInterface
 
     /**
      * @param RequestEvent $event
-     *
-     * @return void
      *
      * @throws \JsonException
      */

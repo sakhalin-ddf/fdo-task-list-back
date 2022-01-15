@@ -3,28 +3,6 @@
     "license": "proprietary",
     "minimum-stability": "stable",
     "prefer-stable": true,
-    "require": {
-        "php": "^8.0",
-        "ext-ctype": "*",
-        "ext-curl": "*",
-        "ext-iconv": "*",
-        "ext-intl": "*",
-        "ext-json": "*",
-        "doctrine/doctrine-bundle": "^2.5",
-        "doctrine/doctrine-migrations-bundle": "^3.2",
-        "doctrine/orm": "^2.11",
-        "nelmio/cors-bundle": "^2.2",
-        "nesbot/carbon": "^2.55",
-        "symfony/console": "^6.0",
-        "symfony/dotenv": "^6.0",
-        "symfony/flex": "^2.0",
-        "symfony/framework-bundle": "^6.0",
-        "symfony/property-access": "^6.0",
-        "symfony/runtime": "^6.0",
-        "symfony/serializer": "^6.0",
-        "symfony/yaml": "^6.0",
-        "zircote/swagger-php": "^4.2"
-    },
     "config": {
         "allow-plugins": {
             "composer/package-versions-deprecated": true,
@@ -47,6 +25,16 @@
             "App\\Tests\\": "tests/"
         }
     },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "^6.0",
+            "docker": false
+        }
+    },
     "replace": {
         "symfony/polyfill-ctype": "*",
         "symfony/polyfill-iconv": "*",
@@ -54,6 +42,32 @@
         "symfony/polyfill-php73": "*",
         "symfony/polyfill-php74": "*",
         "symfony/polyfill-php80": "*"
+    },
+    "require": {
+        "php": "^8.0",
+        "ext-ctype": "*",
+        "ext-curl": "*",
+        "ext-iconv": "*",
+        "ext-intl": "*",
+        "ext-json": "*",
+        "doctrine/doctrine-bundle": "^2.5",
+        "doctrine/doctrine-migrations-bundle": "^3.2",
+        "doctrine/orm": "^2.11",
+        "nelmio/cors-bundle": "^2.2",
+        "nesbot/carbon": "^2.55",
+        "symfony/console": "^6.0",
+        "symfony/dotenv": "^6.0",
+        "symfony/flex": "^2.0",
+        "symfony/framework-bundle": "^6.0",
+        "symfony/property-access": "^6.0",
+        "symfony/runtime": "^6.0",
+        "symfony/serializer": "^6.0",
+        "symfony/yaml": "^6.0",
+        "zircote/swagger-php": "^4.2"
+    },
+    "require-dev": {
+        "symfony/maker-bundle": "^1.36",
+        "symplify/easy-coding-standard": "^10.0"
     },
     "scripts": {
         "auto-scripts": {
@@ -65,19 +79,8 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
-    },
-    "conflict": {
-        "symfony/symfony": "*"
-    },
-    "extra": {
-        "symfony": {
-            "allow-contrib": false,
-            "require": "^6.0",
-            "docker": false
-        }
-    },
-    "require-dev": {
-        "symfony/maker-bundle": "^1.36"
+        ],
+        "code-style-check": "ecs check --config ecs.php",
+        "code-style-format": "ecs check --config ecs.php --fix"
     }
 }
