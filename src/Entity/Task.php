@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\TaskRepository;
+use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\SerializedName;
@@ -32,6 +33,10 @@ class Task
     #[ORM\Column(type: 'datetimetz_immutable', nullable: false)]
     #[SerializedName('created_at')]
     private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column(type: 'datetimetz', nullable: false)]
+    #[SerializedName('updated_at')]
+    private ?\DateTime $updatedAt = null;
 
     public function getId(): ?int
     {
@@ -70,8 +75,20 @@ class Task
     }
 
     #[ORM\PrePersist]
+    #[ORM\PreUpdate]
     public function setCreatedAt(): void
     {
         $this->createdAt ??= CarbonImmutable::now();
+        $this->updatedAt = Carbon::now();
+    }
+
+    public function getUpdatedAt(): ?\DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(): void
+    {
+        $this->updatedAt = Carbon::now();
     }
 }

@@ -36,7 +36,7 @@ class GetAllController extends AbstractController
     {
         return $this->json([
             'status' => 'ok',
-            'data' => $this->repository->findAll(),
+            'data' => $this->repository->findBy([], ['id' => 'asc']),
         ]);
     }
 }
