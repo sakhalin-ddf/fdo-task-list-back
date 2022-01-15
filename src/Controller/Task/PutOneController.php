@@ -6,7 +6,7 @@ namespace App\Controller\Task;
 
 use App\Entity\Task;
 use App\Repository\TaskRepository;
-use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,13 +39,10 @@ use Symfony\Contracts\Service\Attribute\Required;
  *      )
  * )
  */
-class PutOneController
+class PutOneController extends AbstractController
 {
     #[Required]
     public TaskRepository $repository;
-
-    #[Required]
-    public EntityManagerInterface $em;
 
     #[Route(
         path: '/api/task/{id}',
@@ -67,8 +64,7 @@ class PutOneController
             $task->setText($request->request->get('text'));
         }
 
-        $this->em->persist($task);
-        $this->em->flush();
+        $this->repository->persist($task);
 
         return $this->json([
             'status' => 'ok',

@@ -6,7 +6,7 @@ namespace App\Controller\Task;
 
 use App\Entity\Task;
 use App\Repository\TaskRepository;
-use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,13 +31,10 @@ use Symfony\Contracts\Service\Attribute\Required;
  *      )
  * )
  */
-class DeleteOneController
+class DeleteOneController extends AbstractController
 {
     #[Required]
     public TaskRepository $repository;
-
-    #[Required]
-    public EntityManagerInterface $em;
 
     #[Route(
         path: '/api/task/{id}',
@@ -51,8 +48,7 @@ class DeleteOneController
          */
         $task = $this->repository->find($request->attributes->get('id'));
 
-        $this->em->remove($task);
-        $this->em->flush();
+        $this->repository->remove($task);
 
         return $this->json([
             'status' => 'ok',

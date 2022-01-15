@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Controller\Task;
 
 use App\Repository\TaskRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,9 +26,6 @@ class GetAllController extends AbstractController
 {
     #[Required]
     public TaskRepository $repository;
-
-    #[Required]
-    public EntityManagerInterface $em;
 
     #[Route(
         path: '/api/task',
