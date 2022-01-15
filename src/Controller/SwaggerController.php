@@ -11,12 +11,12 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @OpenApi\Annotations\Info(title="FDO Todo list", version="1.0.0")
+ * @OpenApi\Annotations\Info(title="FDO Task list", version="1.0.0")
  */
 class SwaggerController extends AbstractController
 {
     #[Route(
-        path: '/swagger',
+        path: '/api',
         name: 'get-swagger',
         methods: ['GET']
     )]
