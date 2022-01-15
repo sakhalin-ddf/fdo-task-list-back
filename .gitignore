@@ -1,4 +1,5 @@
 /.idea/
+/public/swagger.json
 
 ###> symfony/framework-bundle ###
 /.env.local

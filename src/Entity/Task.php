@@ -10,6 +10,7 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 #[ORM\Entity(
     repositoryClass: TaskRepository::class
 )]
+#[ORM\HasLifecycleCallbacks]
 class Task
 {
     #[ORM\Id]
@@ -18,11 +19,11 @@ class Task
     #[SerializedName('id')]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: false)]
-    #[SerializedName('title')]
-    private ?string $title = null;
+    #[ORM\Column(type: 'boolean', nullable: false)]
+    #[SerializedName('is_checked')]
+    private ?bool $isChecked = null;
 
-    #[ORM\Column(type: 'text', nullable: false)]
+    #[ORM\Column(type: 'string', length: 255, nullable: false)]
     #[SerializedName('text')]
     private ?string $text = null;
 
@@ -35,14 +36,20 @@ class Task
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    /**
+     * @return bool|null
+     */
+    public function getIsChecked(): ?bool
     {
-        return $this->title;
+        return $this->isChecked;
     }
 
-    public function setTitle(string $title): void
+    /**
+     * @param bool|null $isChecked
+     */
+    public function setIsChecked(?bool $isChecked): void
     {
-        $this->title = $title;
+        $this->isChecked = $isChecked;
     }
 
     public function getText(): ?string
@@ -60,6 +67,7 @@ class Task
         return $this->createdAt;
     }
 
+    #[ORM\PrePersist]
     public function setCreatedAt(): void
     {
         $this->createdAt ??= CarbonImmutable::now();

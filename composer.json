@@ -22,7 +22,8 @@
         "symfony/property-access": "^6.0",
         "symfony/runtime": "^6.0",
         "symfony/serializer": "^6.0",
-        "symfony/yaml": "^6.0"
+        "symfony/yaml": "^6.0",
+        "zircote/swagger-php": "^4.2"
     },
     "config": {
         "allow-plugins": {

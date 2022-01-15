@@ -23,6 +23,18 @@ class TaskController extends AbstractController
     #[Required]
     public EntityManagerInterface $em;
 
+    /**
+     * @OpenApi\Annotations\Get(
+     *      operationId="get-api-task",
+     *      path="/api/task",
+     *      tags={"Task"},
+     *      summary="Get api task list",
+     *      @OpenApi\Annotations\Response(
+     *          response=200,
+     *          description="OK",
+     *      )
+     * )
+     */
     #[Route(
         path: '/task',
         name: 'get-api-task',
@@ -36,6 +48,28 @@ class TaskController extends AbstractController
         ]);
     }
 
+
+    /**
+     * @OpenApi\Annotations\Post(
+     *      operationId="post-api-task",
+     *      path="/api/task",
+     *      tags={"Task"},
+     *      summary="Create api task",
+     *      @OpenApi\Annotations\RequestBody(
+     *          required=true,
+     *          @OpenApi\Annotations\JsonContent(
+     *              type="object",
+     *              required={"text"},
+     *              @OpenApi\Annotations\Property(property="is_checked", type="boolean"),
+     *              @OpenApi\Annotations\Property(property="text", type="string"),
+     *          )
+     *      ),
+     *      @OpenApi\Annotations\Response(
+     *          response=200,
+     *          description="OK",
+     *      )
+     * )
+     */
     #[Route(
         path: '/task',
         name: 'post-api-task',
@@ -45,7 +79,7 @@ class TaskController extends AbstractController
     {
         $task = new Task();
 
-        $task->setTitle($request->request->get('title'));
+        $task->setIsChecked((bool) $request->request->get('is_checked', false));
         $task->setText($request->request->get('text'));
 
         $this->em->persist($task);

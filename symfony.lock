@@ -282,5 +282,8 @@
     },
     "symfony/yaml": {
         "version": "v6.0.2"
+    },
+    "zircote/swagger-php": {
+        "version": "4.2.1"
     }
 }
