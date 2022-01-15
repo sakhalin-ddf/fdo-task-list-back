@@ -13,17 +13,14 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @OpenApi\Annotations\Info(title="FDO Todo list", version="1.0.0")
  */
-#[Route(
-    path: '/swagger'
-)]
 class SwaggerController extends AbstractController
 {
     #[Route(
-        path: '/',
+        path: '/swagger',
         name: 'get-swagger',
         methods: ['GET']
     )]
-    public function show(): BinaryFileResponse
+    public function __invoke(): BinaryFileResponse
     {
         $this->generateSwaggerJson();
 
